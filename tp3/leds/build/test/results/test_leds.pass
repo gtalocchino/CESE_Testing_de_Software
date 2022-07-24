@@ -1,0 +1,46 @@
+---
+:source:
+  :path: test
+  :file: test_leds.c
+:successes:
+- :test: test_leds_off_at_startup
+  :line: 33
+  :message: ''
+  :unity_test_time: 0
+- :test: test_turn_on_single_led
+  :line: 42
+  :message: ''
+  :unity_test_time: 0
+- :test: test_turn_off_single_led
+  :line: 49
+  :message: ''
+  :unity_test_time: 0
+- :test: test_turn_on_multiple_leds
+  :line: 57
+  :message: ''
+  :unity_test_time: 0
+- :test: test_turn_on_all_leds_at_once
+  :line: 67
+  :message: ''
+  :unity_test_time: 0
+- :test: test_turn_off_all_leds_at_once
+  :line: 74
+  :message: ''
+  :unity_test_time: 0
+- :test: test_get_status_led_on
+  :line: 83
+  :message: ''
+  :unity_test_time: 0
+- :test: test_get_status_led_off
+  :line: 90
+  :message: ''
+  :unity_test_time: 0
+:failures: []
+:ignores: []
+:counts:
+  :total: 8
+  :passed: 8
+  :failed: 0
+  :ignored: 0
+:stdout: []
+:time: 0.0013458509929478168
