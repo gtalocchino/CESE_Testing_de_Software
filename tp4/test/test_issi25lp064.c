@@ -64,7 +64,7 @@ void test_initialization_read_wrong_id(void) {
    TEST_ASSERT_EQUAL(issi25lp064_ERROR, ISSI25LP064_init());
 }
 
-/**
+/*
  * A read to address 0x1234 should send the command <0x03001234> to memory
  * over SPI.
  */
@@ -79,14 +79,14 @@ void test_read(void) {
    }
 }
 
-/**
+/*
  * If 100 bytes are deleted from address 0x1000 (affects one sector) the following 
  * commands must be sent to memory over SPI.
  * 
- * 1) read status                   : 0x05
- * 2) write enable                  : 0x06
- * 3) erase sector at address 0x1000: 0xd7001000
- * 4) read status                   : 0x05
+ *  a) read status                   : 0x05
+ *  b) write enable                  : 0x06
+ *  c) erase sector at address 0x1000: 0xd7001000
+ *  d) read status                   : 0x05
  */
 void test_erase_one_sector(void) {
    uint8_t sent_seq[] = {0x05, 0x06, 0xd7, 0x00, 0x10, 0x00, 0x05};
@@ -100,19 +100,19 @@ void test_erase_one_sector(void) {
    }
 }
 
-/** 
- *  Before sending the delete command to the memory, it must be verified that the memory 
- *  is not busy doing another operation. If the memory is busy, its status should be 
- *  asked until it answers that it is not busy.
+/*
+ * Before sending the delete command to the memory, it must be verified that the memory 
+ * is not busy doing another operation. If the memory is busy, its status should be 
+ * asked until it answers that it is not busy.
  * 
- *  1) read status                   : 0x05 (receive busy state)
- *  1) read status                   : 0x05 (receive busy state)
- *  3) read status                   : 0x05
- *  2) write enable                  : 0x06
- *  3) erase sector at address 0x1000: 0xd7001000
- *  1) read status                   : 0x05 (receive busy state)
- *  1) read status                   : 0x05 (receive busy state)
- *  3) read status                   : 0x05
+ *  a) read status                   : 0x05 (receive busy state)
+ *  b) read status                   : 0x05 (receive busy state)
+ *  c) read status                   : 0x05
+ *  d) write enable                  : 0x06
+ *  e) erase sector at address 0x1000: 0xd7001000
+ *  f) read status                   : 0x05 (receive busy state)
+ *  g) read status                   : 0x05 (receive busy state)
+ *  h) read status                   : 0x05
  */
 void test_erase_sector_busy(void) {
    uint8_t sent_seq[] = {0x05, 0x05, 0x05, 0x06, 0xd7, 0x00, 0x10, 0x00, 0x05, 0x05, 0x05};
@@ -126,24 +126,24 @@ void test_erase_sector_busy(void) {
    }
 }
 
-/**
+/*
  * If 8193 bytes (affects three sectors) are deleted from address 0x1000 the following 
  * commands must be sent to memory over SPI.
  * 
- *  1) read status                   : 0x05
- *  2) write enable                  : 0x06
- *  3) erase sector at address 0x1000: 0xd7001000
- *  5) read status                   : 0x05
+ *  a) read status                   : 0x05
+ *  b) write enable                  : 0x06
+ *  c) erase sector at address 0x1000: 0xd7001000
+ *  d) read status                   : 0x05
  * 
- *  6) read status                   : 0x05
- *  7) write enable                  : 0x06
- *  8) erase sector at address 0x2000: 0xd7002000
- *  9) read status                   : 0x05
+ *  e) read status                   : 0x05
+ *  f) write enable                  : 0x06
+ *  g) erase sector at address 0x2000: 0xd7002000
+ *  h) read status                   : 0x05
  * 
- * 10) read status                   : 0x05
- * 11) write enable                  : 0x06
- * 12) erase sector at address 0x3000: 0xd7003000
- * 13) read status                   : 0x05
+ *  i) read status                   : 0x05
+ *  j) write enable                  : 0x06
+ *  k) erase sector at address 0x3000: 0xd7003000
+ *  l) read status                   : 0x05
  */
 void test_erase_several_sectors(void) {
    uint8_t sent_seq[] = {0x05, 0x06, 0xd7, 0x00, 0x10, 0x00, 0x05,
@@ -159,13 +159,13 @@ void test_erase_several_sectors(void) {
    }
 }
 
-/**
- *  A write of 10 bytes to address 0x1234 must send the following commands to memory.
+/*
+ * A write of 10 bytes to address 0x1234 must send the following commands to memory.
  *  
- *  1) read status                 : 0x05
- *  2) write enable                : 0x06
- *  3) write page at address 0x1200: 0x02001200 + data
- *  4) read status                 : 0x05
+ *  a) read status                 : 0x05
+ *  b) write enable                : 0x06
+ *  c) write page at address 0x1200: 0x02001200 + data
+ *  d) read status                 : 0x05
  */
 void test_program_one_page(void) {
    uint8_t sent_seq[] = {0x05, 0x06, 0x02, 0x00, 0x12, 0x00, 0x00, 0x01, 
@@ -182,19 +182,19 @@ void test_program_one_page(void) {
    }
 }
 
-/**
- *  Before sending the write page command to the memory, it must be verified that the memory 
- *  is not busy doing another operation. If the memory is busy, its status should be 
- *  asked until it answers that it is not busy.
+/*
+ * Before sending the write page command to the memory, it must be verified that the memory 
+ * is not busy doing another operation. If the memory is busy, its status should be 
+ * asked until it answers that it is not busy.
  *  
- *  1) read status                 : 0x05 (receive busy state)
- *  1) read status                 : 0x05 (receive busy state)
- *  1) read status                 : 0x05
- *  2) write enable                : 0x06
- *  3) write page at address 0x1200: 0x02001200 + data
- *  1) read status                 : 0x05 (receive busy state)
- *  1) read status                 : 0x05 (receive busy state)
- *  4) read status                 : 0x05
+ *  a) read status                 : 0x05 (receive busy state)
+ *  b) read status                 : 0x05 (receive busy state)
+ *  c) read status                 : 0x05
+ *  d) write enable                : 0x06
+ *  e) write page at address 0x1200: 0x02001200 + data
+ *  f) read status                 : 0x05 (receive busy state)
+ *  g) read status                 : 0x05 (receive busy state)
+ *  h) read status                 : 0x05
  */
 void test_program_page_busy(void) {
    uint8_t sent_seq[] = {0x05, 0x05, 0x05, 0x06, 0x02, 0x00, 0x12, 0x00, 0x00, 
