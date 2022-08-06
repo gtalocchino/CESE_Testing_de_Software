@@ -1,4 +1,0 @@
----
-- "/var/lib/gems/2.7.0/gems/ceedling-0.31.1/vendor/unity/src/unity.h"
-- src/issi25lp064.h
-- build/test/mocks/mock_issi25lp064_port.h
