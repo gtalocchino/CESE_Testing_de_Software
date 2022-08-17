@@ -55,7 +55,7 @@ void test_initialization_read_correct_id(void) {
 }
 
 /*
- * The initialization function should must "issi25lp064_ERROR" if the 
+ * The initialization function must return "issi25lp064_ERROR" if the 
  * memory responds with an ID different than 0x9d.
  */
 void test_initialization_read_wrong_id(void) {
