@@ -5,7 +5,7 @@ Tests:
 2) The initialization function must return "issi25lp064_OK" if the 
 memory responds with ID 0x9d.
 
-3) The initialization function should must "issi25lp064_ERROR" if the 
+3) The initialization function must return "issi25lp064_ERROR" if the 
 memory responds with an ID different than 0x9d.
 
 4) A read to address 0x1234 should send the command <0x03001234> to memory
